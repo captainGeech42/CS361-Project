@@ -1,0 +1,28 @@
+{
+  "name": "master-assignment-5",
+  "version": "1.0.0",
+  "description": "Handlebars templating",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "handlebars ./views/*.hbs ./views/partials/*.hbs -f public/compiled.js | nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSU-CS290-F18/master-assignment-5.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/OSU-CS290-F18/master-assignment-5/issues"
+  },
+  "homepage": "https://github.com/OSU-CS290-F18/master-assignment-5#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express3-handlebars": "^0.5.2",
+    "handlebars": "^4.0.12"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
