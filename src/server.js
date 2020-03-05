@@ -6,6 +6,7 @@ var exphbs = require('express-handlebars');
 var utils = require('./utils/utils');
 
 const Database = require('./db/database');
+var db = new Database();
 
 global.__basedir = __dirname + '/..'; //finds the base directory of the node project
 
@@ -58,9 +59,6 @@ app.get('*', function (req, res) {
     res.status(404).render('404');
 });
 
-var db = new Database();
-
-db.init()
 app.listen(port, function () {
     console.log("== Server is listening on port", port);
 });

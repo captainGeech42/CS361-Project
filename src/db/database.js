@@ -9,6 +9,8 @@ const Users = require("./users");
 class Database {
     constructor(path = ":memory:") {
         this.path = path
+
+        init();
     }
 
     init() {
