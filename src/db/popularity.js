@@ -9,8 +9,7 @@ class Popularity {
             ts DATETIME DEFAULT CURRENT_TIMESTAMP,
             topic INTEGER NOT NULL,
             views INTEGER NOT NULL DEFAULT 1,
-            FOREIGN KEY(topic) REFERENCES topics(id),
-            FOREIGN KEY(submitter) REFERENCES users(id)
+            FOREIGN KEY(topic) REFERENCES topics(id)
         );`;
 
         return this.dao.exec(stmt);

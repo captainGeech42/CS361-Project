@@ -27,9 +27,9 @@ class Database {
         this.users.createTable()
         .then(() => this.topics.createTable())
         .then(() => this.resources.createTable())
-        .then(() => this.topics.createTable()) // popularity
+        .then(() => this.popularity.createTable())
         .then(() => this.uploads.createTable())
-        .then(() => this.users.createTable()) // homework
+        .then(() => this.homework.createTable())
         .catch((err) => {
             console.error("Error initializing database structure")
         })
