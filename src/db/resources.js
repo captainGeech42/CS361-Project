@@ -21,16 +21,28 @@ class Resources {
     }
 
     // add resource
+    addResource(name, description, link, type, topic, submitter) {
+        const stmt = 'INSERT INTO resources (name, description, link, type, topic, submitter) VALUES (?, ?, ?, ?, ?, ?);';
+        const params = [name, description, link, type, topic, submitter];
 
-    // edit name
+        return this.dao.exec(stmt, params);
+    }
 
-    // edit description
+    // TODO edit name
 
-    // edit link
+    // TODO edit description
 
-    // delete resource 
+    // TODO edit link
+
+    // TODO delete resource 
 
     // get resource
+    getResourceById(id) {
+        const stmt = 'SELECT name, description, link, type FROM resources WHERE id = ?';
+        const params = [id];
+
+        return this.dao.get(stmt, params);
+    }
 }
 
 module.exports = Resources;

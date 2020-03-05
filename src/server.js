@@ -40,7 +40,7 @@ app.set('view engine', 'hbs');
 var viewDictionary = utils.discoverViews('views/');
 
 app.get('/', function(req, res, next){
-res.status(200).render('index');
+    res.status(200).render('index');
 });
 
 //general routing for pages
@@ -59,6 +59,13 @@ app.get('*', function (req, res) {
     res.status(404).render('404');
 });
 
-app.listen(port, function () {
-    console.log("== Server is listening on port", port);
-});
+db.init()
+.then(() => db.insertDummyData())
+.then(() => {
+    app.listen(port, function () {
+        console.log("== Server is listening on port", port);
+    });
+})
+.catch((err) => {
+    console.error("Error initializing application:", JSON.stringify(err));
+})

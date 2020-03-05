@@ -20,16 +20,38 @@ class Homework {
     }
 
     // add homework
+    addHomework(question, answer, link, topic, submitter) {
+        const stmt = 'INSERT INTO homework (question, answer, link, topic, submitter) VALUES (?, ?, ?, ?, ?);';
+        const params = [question, answer, link, topic, submitter];
 
-    // edit question
+        return this.dao.exec(stmt, params);
+    }
 
-    // edit answer
+    // TODO edit question
 
-    // edit link
+    // TODO edit answer
 
-    // delete homework
+    // TODO edit link
 
-    // get homework
+    // TODO delete homework
+
+    // get homework for a specific topic
+    // returns id and question
+    getHomeworkByTopicId(topicId) {
+        const stmt = 'SELECT id, question FROM homework WHERE topic = ?;';
+        const params = [topicId];
+
+        return this.dao.all(stmt, params);
+    }
+
+    // get homework by id
+    // returns id, question, answer, link
+    getHomeworkById(id) {
+        const stmt = 'SELECT id, question, answer, link FROM homework WHERE id = ?;';
+        const params = [id];
+
+        return this.dao.get(stmt, params);
+    }
 }
 
 module.exports = Homework;
