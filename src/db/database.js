@@ -1,89 +1,115 @@
-const DAO = require("./dao");
-const Homework = require("./homework");
-const Popularity = require("./popularity");
-const Resources = require("./resources");
-const Topics = require("./topics");
-const Uploads = require("./uploads");
-const Users = require("./users");
+var data = require('./data.json')
 
 class Database {
-    constructor(path = ":memory:") {
-        this.path = path;
+    constructor() {
+        this.data = data;
     }
 
-    init() {
-        // initialize the DAO
-        this.dao = new DAO(this.path);
-
-        // make the objects for each table
-        this.homework = new Homework(this.dao);
-        this.popularity = new Popularity(this.dao);
-        this.resources = new Resources(this.dao);
-        this.topics = new Topics(this.dao);
-        this.uploads = new Uploads(this.dao);
-        this.users = new Users(this.dao);
-
-        // create the tables
-        return new Promise((resolve, reject) => {
-            this.users.createTable()
-            .then(() => {
-                return this.topics.createTable()
-            })
-            .then(() => {
-                return this.resources.createTable()
-            })
-            .then(() => {
-                return this.popularity.createTable()
-            })
-            .then(() => {
-                return this.uploads.createTable()
-            })
-            .then(() => {
-                return this.homework.createTable()
-            })
-            .catch((err) => {
-                reject(err);
-            });
-            resolve();
-        });
+    getTopic(topicID) {
+        try {
+            return data.topics[topicID];
+        } catch (err) {
+            console.error(`Failed to get topic ${topicID}:`, JSON.stringify(err));
+            return {};
+        }
     }
 
-    insertDummyData() {
-        return new Promise((resolve, reject) => {
-            this.topics.addTopic("Math")
-            // this.homework.addHomework("a", "s", "d", 0, 0)
-            .then(() => {
-                return this.topics.getTopicByNameNoParent("Math")
+    getHomework(homeworkID) {
+        try {
+            return data.homework[homeworkID];
+        } catch (err) {
+            console.error(`Failed to get homework ${homeworkID}:`, JSON.stringify(err));
+            return {};
+        }
+    }
+
+    getResource(resourceID) {
+        try {
+            return data.resources[resourceID];
+        } catch (err) {
+            console.error(`Failed to get resource ${resourceID}:`, JSON.stringify(err));
+            return {};
+        }
+    }
+    
+    getParentTopics() {
+        try {
+            var topics = this.data.topics;
+
+            var parents = Object.keys(topics)
+            .filter((k) => {
+                return topics[k].parent == null; // parent topics don't have a parent value set
             })
-            .then((row) => {
-                var parentId = row.id;
-                this.topics.addTopic("Algebra", parent=parentId);
-                return parentId;
+            .reduce((obj, key) => {
+                obj[key] = topics[key];
+                return obj
+            }, {});
+
+            return parents;
+        } catch (err) {
+            console.error("Failed to get parent topics:", JSON.stringify(err));
+            return {};
+        }
+    }
+
+    getChildTopics(parentID) {
+        try {
+            var topics = this.data.topics;
+
+            var children = Object.keys(topics)
+            .filter((k) => {
+                return topics[k].parent == parentId; // only want children with the correct parent
             })
-            .then((parentId) => {
-                this.topics.addTopic("Geometry", parent=parentId);
-                return parentId;
+            .reduce((obj, key) => {
+                obj[key] = topics[key];
+                return obj
+            }, {});
+
+            return children;
+        } catch (err) {
+            console.error(`Failed to get child topics for parent (parentID=${parentID}):`, JSON.stringify(err));
+            return {};
+        }
+    }
+
+    getHomeworkForTopic(topicID) {
+        try {
+            var homework = this.data.homework;
+
+            var topicHomework = Object.keys(homework)
+            .filter((k) => {
+                return homework[k].topic == topicID; // only want homework for the correct topic
             })
-            .then((parentId) => {
-                this.topics.addTopic("Calc 1", parent=parentId);
-                return parentId;
+            .reduce((obj, key) => {
+                obj[key] = homework[key];
+                return obj
+            }, {});
+
+            return topicHomework;
+        } catch (err) {
+            console.error(`Failed to get homework for topic (topicID=${topicID}):`, JSON.stringify(err));
+            return {};
+        }
+    }
+
+    getResourcesForTopic(topicID) {
+        try {
+            var resources = this.data.resources;
+
+            var topicResources = Object.keys(resources)
+            .filter((k) => {
+                return resources[k].topic == topicID; // only want resources for the correct topic
             })
-            .then((parentId) => {
-                this.topics.addTopic("Calc 2", parent=parentId);
-                return parentId;
-            })
-            .then((parentId) => {
-                this.topics.addTopic("Calc 3", parent=parentId);
-                return parentId;
-            })
-            .then((parentId) => {
-                this.topics.addTopic("Linear Algebra", parent=parentId);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-            resolve();
-        });
+            .reduce((obj, key) => {
+                obj[key] = resources[key];
+                return obj
+            }, {});
+
+            return topicResources;
+        } catch (err) {
+            console.error(`Failed to get resources for topic (topicID=${topicID}):`, JSON.stringify(err));
+            return {};
+        }
     }
 }
 
