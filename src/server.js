@@ -1,9 +1,12 @@
 var fs = require("fs");
 var path = require('path');
 var express = require('express');
-var exphbs = require('express3-handlebars');
+var exphbs = require('express-handlebars');
 
 var utils = require('./utils/utils');
+
+const Database = require('./db/database');
+var db = new Database();
 
 global.__basedir = __dirname + '/..'; //finds the base directory of the node project
 
@@ -15,13 +18,13 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 hbs = hbs = exphbs.create({
-  // Specify helpers which are only registered on this instance.
-  defaultLayout: 'main',
-  helpers: {
-      foo: function () { return 'FOO!'; },
-      bar: function () { return 'BAR!'; }
-  },
-  extname:'.hbs'
+    // Specify helpers which are only registered on this instance.
+    defaultLayout: 'main',
+    helpers: {
+        foo: function () { return 'FOO!'; },
+        bar: function () { return 'BAR!'; }
+    },
+    extname:'.hbs'
 });
 
 
@@ -37,25 +40,25 @@ app.set('view engine', 'hbs');
 var viewDictionary = utils.discoverViews('views/');
 
 app.get('/', function(req, res, next){
-  res.status(200).render('index');
+    res.status(200).render('index');
 });
 
 //general routing for pages
 app.get('/:pageName',  function(req, res, next){
-  if(viewDictionary[req.params.pageName + '.hbs']){
-    console.log("Rendering page: " + req.params.pageName);
+    if(viewDictionary[req.params.pageName + '.hbs']){
+        console.log("Rendering page: " + req.params.pageName);
 
-    res.render(req.params.pageName);
-  }else{
-    next();
-  }
+        res.render(req.params.pageName);
+    }else{
+        next();
+    }
 });
 
 
 app.get('*', function (req, res) {
-  res.status(404).render('404');
+    res.status(404).render('404');
 });
 
 app.listen(port, function () {
-  console.log("== Server is listening on port", port);
+    console.log("== Server is listening on port", port);
 });

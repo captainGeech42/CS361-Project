@@ -1,0 +1,159 @@
+{
+    "topics": {
+        "1": {
+            "name": "Math",
+            "description": "",
+            "parent": null
+        },
+        "2": {
+            "name": "Science",
+            "description": "",
+            "parent": null
+        },
+        "3": {
+            "name": "English",
+            "description": "",
+            "parent": null
+        },
+        "4": {
+            "name": "History",
+            "description": "",
+            "parent": null
+        },
+        "5": {
+            "name": "Algebra",
+            "description": "",
+            "parent": 1
+        },
+        "6": {
+            "name": "Geometry",
+            "description": "",
+            "parent": 1
+        },
+        "7": {
+            "name": "Calculus",
+            "description": "",
+            "parent": 1
+        },
+        "8": {
+            "name": "Biology",
+            "description": "",
+            "parent": 2
+        },
+        "9": {
+            "name": "Chemistry",
+            "description": "",
+            "parent": 2
+        },
+        "10": {
+            "name": "Physics",
+            "description": "",
+            "parent": 2
+        },
+        "11": {
+            "name": "Shakespeare",
+            "description": "One of the most famous poets and authors in history",
+            "parent": 3
+        },
+        "12": {
+            "name": "Grammar",
+            "description": "Commas, periods, and all things fragment",
+            "parent": 3
+        },
+        "13": {
+            "name": "Writing",
+            "description": "",
+            "parent": 3
+        },
+        "14": {
+            "name": "Mesopotamia",
+            "description": "One of the first recorded civilizations",
+            "parent": 4
+        },
+        "15": {
+            "name": "The War of 1812",
+            "description": "",
+            "parent": 4
+        },
+        "16": {
+            "name": "The American Revolution",
+            "description": "",
+            "parent": 4
+        },
+        "17": {
+            "name": "Rise of Communist China",
+            "description": "",
+            "parent": 4
+        }
+    },
+    "homework": {
+        "1": {
+            "question": "2+2=?",
+            "answer": "4",
+            "link": "",
+            "topic": 5
+        },
+        "2": {
+            "question": "3x+1=7. What is x?",
+            "answer": "2",
+            "link": "",
+            "topic": 5
+        },
+        "3": {
+            "question": "(8x*3)/2=20. What is x?",
+            "answer": "",
+            "link": "",
+            "topic": 5
+        }
+    },
+    "resources": {
+        "1": {
+            "name": "Big Ideas Math: Algebra 1, A Common Core Curriculum",
+            "description": "By Ron Larson and Laurie Boswell",
+            "link": "https://bim.easyaccessmaterials.com/index.php?level=11.00",
+            "type": "Textbook",
+            "topic": 5,
+            "submitter": null
+        },
+        "2": {
+            "name": "Big Ideas Math: Algebra 2, A Common Core Curriculum",
+            "description": "By Ron Larson and Laurie Boswell",
+            "link": "https://bim.easyaccessmaterials.com/index.php?level=13.00",
+            "type": "Textbook",
+            "topic": 5,
+            "submitter": null
+        },
+        "3": {
+            "name": "Big Ideas Math: Geometry, A Common Core Curriculum",
+            "description": "By Ron Larson and Laurie Boswell",
+            "link": "https://bim.easyaccessmaterials.com/index.php?level=12.00",
+            "type": "Textbook",
+            "topic": 6,
+            "submitter": null
+        },
+        "4": {
+            "name": "Calculus",
+            "description": "By Gilbert Strang",
+            "link": "http://ocw.mit.edu/ans7870/resources/Strang/Edited/Calculus/Calculus.pdf",
+            "type": "Textbook",
+            "topic": 7,
+            "submitter": null
+        },
+        "5": {
+            "name": "Understanding Calculus in 10 minutes",
+            "description": "By TabletClass Math",
+            "link": "https://www.youtube.com/watch?v=WjJ-kpgps1c",
+            "type": "Video",
+            "topic": 7,
+            "submitter": null
+        },
+        "6": {
+            "name": "Calculus: Derivatives 1 | Taking derivatives",
+            "description": "By Khan Academy",
+            "link": "https://www.youtube.com/watch?v=rAof9Ld5sOg",
+            "type": "Video",
+            "topic": 7,
+            "submitter": null
+        }
+    }
+}
