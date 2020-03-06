@@ -13,7 +13,7 @@ class Database {
         try {
             return data.topics[topicID];
         } catch (err) {
-            console.error(`Failed to get topic ${topicID}:`, JSON.stringify(err));
+            console.error(`Failed to get topic ${topicID}:`, err);
             return {};
         }
     }
@@ -22,7 +22,7 @@ class Database {
         try {
             return data.homework[homeworkID];
         } catch (err) {
-            console.error(`Failed to get homework ${homeworkID}:`, JSON.stringify(err));
+            console.error(`Failed to get homework ${homeworkID}:`, err);
             return {};
         }
     }
@@ -31,7 +31,7 @@ class Database {
         try {
             return data.resources[resourceID];
         } catch (err) {
-            console.error(`Failed to get resource ${resourceID}:`, JSON.stringify(err));
+            console.error(`Failed to get resource ${resourceID}:`, err);
             return {};
         }
     }
@@ -51,7 +51,7 @@ class Database {
 
             return parents;
         } catch (err) {
-            console.error("Failed to get parent topics:", JSON.stringify(err));
+            console.error("Failed to get parent topics:", err);
             return {};
         }
     }
@@ -62,7 +62,7 @@ class Database {
 
             var children = Object.keys(topics)
             .filter((k) => {
-                return topics[k].parent == parentId; // only want children with the correct parent
+                return topics[k].parent === parentID; // only want children with the correct parent
             })
             .reduce((obj, key) => {
                 obj[key] = topics[key];
@@ -71,7 +71,7 @@ class Database {
 
             return children;
         } catch (err) {
-            console.error(`Failed to get child topics for parent (parentID=${parentID}):`, JSON.stringify(err));
+            console.error(`Failed to get child topics for parent (parentID=${parentID}):`, err);
             return {};
         }
     }
@@ -91,7 +91,7 @@ class Database {
 
             return topicHomework;
         } catch (err) {
-            console.error(`Failed to get homework for topic (topicID=${topicID}):`, JSON.stringify(err));
+            console.error(`Failed to get homework for topic (topicID=${topicID}):`, err);
             return {};
         }
     }
@@ -111,7 +111,7 @@ class Database {
 
             return topicResources;
         } catch (err) {
-            console.error(`Failed to get resources for topic (topicID=${topicID}):`, JSON.stringify(err));
+            console.error(`Failed to get resources for topic (topicID=${topicID}):`, err);
             return {};
         }
     }
