@@ -59,13 +59,6 @@ app.get('*', function (req, res) {
     res.status(404).render('404');
 });
 
-db.init()
-.then(() => db.insertDummyData())
-.then(() => {
-    app.listen(port, function () {
-        console.log("== Server is listening on port", port);
-    });
-})
-.catch((err) => {
-    console.error("Error initializing application:", JSON.stringify(err));
-})
+app.listen(port, function () {
+    console.log("== Server is listening on port", port);
+});

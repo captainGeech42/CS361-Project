@@ -106,9 +106,6 @@
             "topic": 5
         }
     },
-    "popularity": {
-
-    },
     "resources": {
         "1": {
             "name": "Big Ideas Math: Algebra 1, A Common Core Curriculum",
@@ -157,9 +154,6 @@
             "type": "Video",
             "topic": 7,
             "submitter": null
-        },
-    },
-    "users": {
-
+        }
     }
 }

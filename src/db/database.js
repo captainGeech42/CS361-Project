@@ -5,6 +5,10 @@ class Database {
         this.data = data;
     }
 
+    /*
+     * Get a topic object from the database
+     * @param topicID: ID for requested topic
+     */
     getTopic(topicID) {
         try {
             return data.topics[topicID];
