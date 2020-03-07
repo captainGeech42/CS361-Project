@@ -17,7 +17,7 @@ global.__basedir = __dirname + '/..'; //finds the base directory of the node pro
 var app = express();
 var port = process.env.PORT || 3000;
 
-hbs = hbs = exphbs.create({
+hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
     defaultLayout: 'main',
     helpers: {
@@ -43,6 +43,26 @@ app.get('/', function(req, res, next){
     res.status(200).render('index');
 });
 
+
+app.get('/topics', function(req, res, next){
+    var topicData = new Array();
+    var parentTopics = db.getParentTopics(); //array of a topic id strings
+    for(var x = 0; x < parentTopics.length; x++){
+        var childTopics = db.getChildTopics(parentTopics[x]);
+        topicData.push({
+            parentName: db.getTopic(parentTopics[x]).name,
+            childTopics: childTopics
+        });
+    }
+    
+    res.status(200).render('topics', {
+        "topicData": topicData,
+        "popularTopics": db.getPopularTopics(10),
+        "popularResources": db.getPopularResources(10)
+    });
+
+});
+
 //general routing for pages
 app.get('/:pageName',  function(req, res, next){
     if(viewDictionary[req.params.pageName + '.hbs']){
@@ -53,7 +73,6 @@ app.get('/:pageName',  function(req, res, next){
         next();
     }
 });
-
 
 app.get('*', function (req, res) {
     res.status(404).render('404');
