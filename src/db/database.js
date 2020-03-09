@@ -44,10 +44,10 @@ class Database {
             .filter((k) => {
                 return topics[k].parent == null; // parent topics don't have a parent value set
             })
-            .reduce((obj, key) => {
-                obj[key] = topics[key];
-                return obj
-            }, {});
+            // .reduce((obj, key) => {
+            //     obj[key] = topics[key];
+            //     return obj
+            // }, {});
 
             return parents;
         } catch (err) {
@@ -56,20 +56,30 @@ class Database {
         }
     }
 
+    /**
+     * Returns an array of child objects. 
+     * 
+     * @param {number} parentID The parent id of the topic
+     */
     getChildTopics(parentID) {
         try {
             var topics = this.data.topics;
 
             var children = Object.keys(topics)
             .filter((k) => {
-                return topics[k].parent === parentID; // only want children with the correct parent
+                return topics[k].parent == parentID; // only want children with the correct parent
             })
             .reduce((obj, key) => {
                 obj[key] = topics[key];
                 return obj
             }, {});
+            
+            var output = new Array();
+            Object.keys(children).forEach(function(key){
+                output.push(children[key]);
+            });
 
-            return children;
+            return output;
         } catch (err) {
             console.error(`Failed to get child topics for parent (parentID=${parentID}):`, err);
             return {};
@@ -115,6 +125,52 @@ class Database {
             return {};
         }
     }
+
+
+    /**
+     * return array of popular topics in descending order
+     * 
+     * @param {number} n popular topics to return
+     */
+    getPopularTopics(n) {
+        var topics = shuffle(Object.keys(data.topics))
+        var outputArray = new Array()
+        for (var x = 0; x < Math.min(n, topics.length); x++) {
+            outputArray.push(data.topics[topics[x]])
+            
+        }
+
+        return outputArray;
+
+    }
+    /**
+     * returns n amount of popular resources in descending order.
+     * 
+     * @param {number} n popular resources to reurn 
+     */
+    getPopularResources(n) {
+        var topicResources = shuffle(Object.keys(data.resources))
+        var outputArray = new Array()
+        for (var x = 0; x < Math.min(n, topicResources.length); x++) {
+            outputArray.push(data.resources[topicResources[x]])
+            
+        }
+
+        return outputArray;
+
+    }
+    
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
 }
 
 module.exports = Database;

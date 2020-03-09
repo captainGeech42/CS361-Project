@@ -1,0 +1,11 @@
+<div id="popularity-sidebar">
+    <h1 class="topic-display-title" >Popular Resources Today</h1>
+    <hr>
+
+    <ol>
+    {{#each popularResources as |child|}}
+        <li><a href="{{child.link}}">{{child.name}}</a></li>
+    {{/each}}
+    </ol>
+
+</div>
