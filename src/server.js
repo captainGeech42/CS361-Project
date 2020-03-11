@@ -43,7 +43,7 @@ app.get('/', function(req, res, next){
     res.status(200).render('index');
 });
 
-app.get('/topics/1/:pageName', function(req, res, next){
+app.get('/topics/:topicID/:pageName', function(req, res, next){
     // res.status(200).render(req.params.pageName);
     res.status(200).render('Algebra');
 });
