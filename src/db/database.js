@@ -170,6 +170,25 @@ class Database {
 
         return user;
     }
+
+    /**
+     * Add a user to the database
+     * 
+     * @param {string} email email address for the user
+     * @param {string} password hashed password for the user
+     * @param {string} name user's name
+     */
+    addUser(email, password, name) {
+        var id = data.users.length + 1;
+        var newUser = {
+            "id": id,
+            "email": email,
+            "password": password,
+            "name": name,
+            "isAdmin": false
+        };
+        data.users.push(newUser);
+    }
 }
 
 function shuffle(a) {
