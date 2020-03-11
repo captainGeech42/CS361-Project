@@ -4,7 +4,7 @@ templates['404.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
     return "<main class=\"error-container\">\n    <h2>404</h2>\n    <h3>Woops!  We couldn't find that page.</h3>\n</main>";
 },"useData":true});
 templates['account.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<i>Not yet implemented</i>";
+    return "";
 },"useData":true});
 templates['index.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div>\n  \n</div>";
