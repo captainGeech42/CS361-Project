@@ -48,9 +48,9 @@ app.get('/topics', function(req, res, next){
     var topicData = new Array();
     var parentTopics = db.getParentTopics(); //array of a topic id strings
     for(var x = 0; x < parentTopics.length; x++){
-        var childTopics = db.getChildTopics(parentTopics[x]);
+        var childTopics = db.getChildTopics(parentTopics[x].id);
         topicData.push({
-            parentName: db.getTopic(parentTopics[x]).name,
+            parentName: db.getTopic(parentTopics[x].id).name,
             childTopics: childTopics
         });
     }
@@ -61,6 +61,11 @@ app.get('/topics', function(req, res, next){
         "popularResources": db.getPopularResources(10)
     });
 
+});
+
+app.get('/topics/:topicID', function(req, res, next) {
+    // TODO make a topic page here
+    next();
 });
 
 //general routing for pages
