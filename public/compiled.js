@@ -21,9 +21,9 @@ templates['topics.hbs'] = template({"1":function(container,depth0,helpers,partia
     };
 
   return "                    <div class=\"topic-display card\">\n                        <h1 class=\"topic-display-title\"><a href=\"/topics/"
-    + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"id") : stack1), depth0))
+    + alias2(alias1(((stack1 = ((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"parent") : stack1)) != null ? lookupProperty(stack1,"id") : stack1), depth0))
     + "/\">"
-    + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"parentName") : stack1), depth0))
+    + alias2(alias1(((stack1 = ((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"parent") : stack1)) != null ? lookupProperty(stack1,"name") : stack1), depth0))
     + "</a></h1>\n                        <hr>\n\n"
     + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"childTopics") : stack1),{"name":"each","hash":{},"fn":container.program(2, data, 1, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams,"loc":{"start":{"line":10,"column":24},"end":{"line":12,"column":33}}})) != null ? stack1 : "")
     + "                    </div>\n";
@@ -36,6 +36,8 @@ templates['topics.hbs'] = template({"1":function(container,depth0,helpers,partia
     };
 
   return "                            <div class=\"topic-display-child-topic\"><a href=\"/topics/"
+    + alias2(alias1(((stack1 = ((stack1 = blockParams[1][0]) != null ? lookupProperty(stack1,"parent") : stack1)) != null ? lookupProperty(stack1,"id") : stack1), depth0))
+    + "/"
     + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"id") : stack1), depth0))
     + "\">"
     + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"name") : stack1), depth0))

@@ -141,6 +141,35 @@ class Database {
         return shuffle(data.resources).slice(n);
     }
     
+    /**
+     * Returns a user object for the specified userID
+     * 
+     * @param {number,string} id user ID to find
+     */
+    getUser(id) {
+        var user = data.users.find(x => x.id == id);
+
+        if (!user) {
+            console.err(`Failed to find user with id ${id}`);
+        }
+
+        return user;
+    }
+
+    /**
+     * Returns a user object for the specified email
+     * 
+     * @param {string} email user email to find
+     */
+    getUserByEmail(email) {
+        var user = data.users.find(x => x.email == email);
+
+        if (!user) {
+            console.err(`Failed to find user with email '${email}'`);
+        }
+
+        return user;
+    }
 }
 
 function shuffle(a) {

@@ -181,5 +181,21 @@
             "topic": 7,
             "submitter": null
         }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@test.foo",
+            "password": "",
+            "name": "Admin User",
+            "isAdmin": true
+        },
+        {
+            "id": 2,
+            "email": "user@test.foo",
+            "password": "",
+            "name": "User 1",
+            "isAdmin": false
+        }
     ]
 }
