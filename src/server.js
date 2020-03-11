@@ -43,7 +43,7 @@ app.get('/', function(req, res, next){
     res.status(200).render('index');
 });
 
-app.get('/topics/Math/:pageName', function(req, res, next){
+app.get('/topics/1/:pageName', function(req, res, next){
     // res.status(200).render(req.params.pageName);
     res.status(200).render('Algebra');
 });
@@ -55,7 +55,7 @@ app.get('/topics', function(req, res, next){
     for(var x = 0; x < parentTopics.length; x++){
         var childTopics = db.getChildTopics(parentTopics[x].id);
         topicData.push({
-            parentName: db.getTopic(parentTopics[x].id).name,
+            parent: db.getTopic(parentTopics[x].id),
             childTopics: childTopics
         });
     }
@@ -68,10 +68,10 @@ app.get('/topics', function(req, res, next){
 
 });
 
-app.get('/topics/:topicID', function(req, res, next) {
-    // TODO make a topic page here
-    next();
-});
+// app.get('/topics/:topicID', function(req, res, next) {
+//     // TODO make a topic page here
+//     next();
+// });
 
 //general routing for pages
 app.get('/:pageName',  function(req, res, next){
