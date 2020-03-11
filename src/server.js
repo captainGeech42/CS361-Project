@@ -31,7 +31,7 @@ hbs = exphbs.create({
 app.use(express.static('public'));
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
- 
+
 
 //==================================
 //=            ROUTING             =
@@ -41,6 +41,11 @@ var viewDictionary = utils.discoverViews('views/');
 
 app.get('/', function(req, res, next){
     res.status(200).render('index');
+});
+
+app.get('/topics/Math/:pageName', function(req, res, next){
+    // res.status(200).render(req.params.pageName);
+    res.status(200).render('Algebra');
 });
 
 
