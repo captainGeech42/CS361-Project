@@ -4,11 +4,19 @@
             <div id="content-container">
                 {{#each topicData as |parentTopic|}}
                     <div class="topic-display card">
+<<<<<<< HEAD
                         <h1 class="topic-display-title"><a href="/topics/{{parentTopic.parentName}}/">{{parentTopic.parentName}}</a></h1>
                         <hr>
 
                         {{#each parentTopic.childTopics as |child|}}
                             <div class="topic-display-child-topic"><a href="/topics/{{parentTopic.parentName}}/{{child.name}}">{{child.name}}</a></div>
+=======
+                        <h1 class="topic-display-title"><a href="/topics/{{parentTopic.id}}/">{{parentTopic.parentName}}</a></h1>
+                        <hr>
+
+                        {{#each parentTopic.childTopics as |child|}}
+                            <div class="topic-display-child-topic"><a href="/topics/{{child.id}}">{{child.name}}</a></div>
+>>>>>>> master
                         {{/each}}
                     </div>
                 {{/each}}
@@ -19,4 +27,8 @@
             {{>popularResourcesSidebar}}
         </td>
     </tr>
+<<<<<<< HEAD
 </table>
+=======
+</table>
+>>>>>>> master

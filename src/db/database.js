@@ -5,125 +5,121 @@ class Database {
         this.data = data;
     }
 
-    /*
-     * Get a topic object from the database
-     * @param topicID: ID for requested topic
+    /** 
+     * Return a topic object from the database
+     * 
+     * @param {number,string} topicID: ID for requested topic
      */
     getTopic(topicID) {
-        try {
-            return data.topics[topicID];
-        } catch (err) {
-            console.error(`Failed to get topic ${topicID}:`, err);
-            return {};
-        }
-    }
+        var topic = data.topics.find(x => x.id == topicID);
 
-    getHomework(homeworkID) {
-        try {
-            return data.homework[homeworkID];
-        } catch (err) {
-            console.error(`Failed to get homework ${homeworkID}:`, err);
-            return {};
+        if (!topic) {
+            console.error(`Failed to get topic ${topicID}`);
         }
-    }
 
-    getResource(resourceID) {
-        try {
-            return data.resources[resourceID];
-        } catch (err) {
-            console.error(`Failed to get resource ${resourceID}:`, err);
-            return {};
-        }
-    }
-    
-    getParentTopics() {
-        try {
-            var topics = this.data.topics;
-
-            var parents = Object.keys(topics)
-            .filter((k) => {
-                return topics[k].parent == null; // parent topics don't have a parent value set
-            })
-            // .reduce((obj, key) => {
-            //     obj[key] = topics[key];
-            //     return obj
-            // }, {});
-
-            return parents;
-        } catch (err) {
-            console.error("Failed to get parent topics:", err);
-            return {};
-        }
+        return topic;
     }
 
     /**
-     * Returns an array of child objects. 
+     * Return a homework object from the database
      * 
-     * @param {number} parentID The parent id of the topic
+     * @param {number,string} homeworkID: ID for the requested homework
+     */
+    getHomework(homeworkID) {
+        var homework = data.homework.find(x => x.id == homeworkID);
+
+        if (!homework) {
+            console.error(`Failed to get homework ${homeworkID}`);
+        }
+
+        return homework;
+    }
+
+    /**
+     * Return a resource object from the database
+     * 
+     * @param {number,string} resourceID: ID for the requested resource
+     */
+    getResource(resourceID) {
+        var resource = data.resources.find(x => x.id == resourceID);
+
+        if (!resource) {
+            console.error(`Failed to get resource ${resourceID}`);
+        }
+
+        return resource;
+    }
+   
+    /**
+     * Return all parent topics from the database
+     * (any topic w/o a 'parent' param set)
+     */
+    getParentTopics() {
+        var topics = data.topics.filter(x => x.parent == null);
+
+        if (!topics) {
+            console.error("Failed to find any parent topics");
+        }
+
+        return topics;
+    }
+
+    /**
+     * Returns an array of topic objects for the corresponding parent ID
+     * (any topic with 'parent' set to parentID) 
+     * 
+     * @param {number,string} parentID The parent id of the topic
      */
     getChildTopics(parentID) {
-        try {
-            var topics = this.data.topics;
+        var topics = data.topics.filter(x => x.parent == parentID);
 
-            var children = Object.keys(topics)
-            .filter((k) => {
-                return topics[k].parent == parentID; // only want children with the correct parent
-            })
-            .reduce((obj, key) => {
-                obj[key] = topics[key];
-                return obj
-            }, {});
-            
-            var output = new Array();
-            Object.keys(children).forEach(function(key){
-                output.push(children[key]);
-            });
-
-            return output;
-        } catch (err) {
-            console.error(`Failed to get child topics for parent (parentID=${parentID}):`, err);
-            return {};
+        if (topics.length === 0) {
+            console.error(`Failed to find any child topics for parent topic ${parentID}`)
         }
+
+        return topics;
     }
 
+    /**
+     * Returns an array of all child topics 
+     * ('parent' set to non-null)
+     */
+    getAllChildTopics() {
+        var topics = data.topics.filter(x => x.parent);
+
+        if (topics.lenght === 0) {
+            console.error("Failed to get any child topics");
+        }
+
+        return topics;
+    }
+
+    /**
+     * Returns an array of homework objects for the corresponding homework ID
+     * (any homework with 'topic' set to topicID)
+     */
     getHomeworkForTopic(topicID) {
-        try {
-            var homework = this.data.homework;
+        var homework = data.homework.filter(x => x.topic == topicID);
 
-            var topicHomework = Object.keys(homework)
-            .filter((k) => {
-                return homework[k].topic == topicID; // only want homework for the correct topic
-            })
-            .reduce((obj, key) => {
-                obj[key] = homework[key];
-                return obj
-            }, {});
-
-            return topicHomework;
-        } catch (err) {
-            console.error(`Failed to get homework for topic (topicID=${topicID}):`, err);
-            return {};
+        if (homework.length === 0) {
+            console.error(`Failed to find any homework for topic ${topicID}`);
         }
+
+        return homework;
     }
 
+    /**
+     * Returns an array of resource objects for the specified topic
+     * @param {number,string} topicID The topic to find resources for
+     */
     getResourcesForTopic(topicID) {
-        try {
-            var resources = this.data.resources;
+        var resources = data.resources.filter(x => x.topic == topicID);
 
-            var topicResources = Object.keys(resources)
-            .filter((k) => {
-                return resources[k].topic == topicID; // only want resources for the correct topic
-            })
-            .reduce((obj, key) => {
-                obj[key] = resources[key];
-                return obj
-            }, {});
-
-            return topicResources;
-        } catch (err) {
-            console.error(`Failed to get resources for topic (topicID=${topicID}):`, err);
-            return {};
+        if (resources.length === 0) {
+            console.error(`Failed to find any resources for ${topicID}`);
         }
+
+        return resources;
     }
 
 
@@ -133,31 +129,16 @@ class Database {
      * @param {number} n popular topics to return
      */
     getPopularTopics(n) {
-        var topics = shuffle(Object.keys(data.topics))
-        var outputArray = new Array()
-        for (var x = 0; x < Math.min(n, topics.length); x++) {
-            outputArray.push(data.topics[topics[x]])
-            
-        }
-
-        return outputArray;
-
+        return shuffle(this.getAllChildTopics()).slice(n);
     }
+
     /**
      * returns n amount of popular resources in descending order.
      * 
      * @param {number} n popular resources to reurn 
      */
     getPopularResources(n) {
-        var topicResources = shuffle(Object.keys(data.resources))
-        var outputArray = new Array()
-        for (var x = 0; x < Math.min(n, topicResources.length); x++) {
-            outputArray.push(data.resources[topicResources[x]])
-            
-        }
-
-        return outputArray;
-
+        return shuffle(data.resources).slice(n);
     }
     
 }
