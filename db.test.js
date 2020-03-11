@@ -35,10 +35,10 @@ test('Checking if DB pulls correct resource. (2/2)', () => {
 test('Checking if DB pulls the correct parent topics. (1/1)', () => {
     var parentTopics = db.getParentTopics();
 
-    expect(parentTopics["1"].name).toBe("Math");
-    expect(parentTopics["2"].name).toBe("Science");
-    expect(parentTopics["3"].name).toBe("English");
-    expect(parentTopics["4"].name).toBe("History");
+    expect(parentTopics.find(x => x.id === 1).name).toBe("Math");
+    expect(parentTopics.find(x => x.id === 2).name).toBe("Science");
+    expect(parentTopics.find(x => x.id === 3).name).toBe("English");
+    expect(parentTopics.find(x => x.id === 4).name).toBe("History");
 });
 
 
@@ -46,9 +46,9 @@ test('Checking if DB pulls the correct parent topics. (1/1)', () => {
 test('Checking if DB pulls correct child topics. (1/1)', () => {
     var childTopics = db.getChildTopics("1");
 
-    expect(childTopics["5"].name).toBe("Algebra");
-    expect(childTopics["6"].name).toBe("Geometry");
-    expect(childTopics["7"].name).toBe("Calculus");
+    expect(childTopics.find(x => x.id === 5).name).toBe("Algebra");
+    expect(childTopics.find(x => x.id === 6).name).toBe("Geometry");
+    expect(childTopics.find(x => x.id === 7).name).toBe("Calculus");
 });
 
 
@@ -56,15 +56,15 @@ test('Checking if DB pulls correct child topics. (1/1)', () => {
 test('Checking if DB pulls correct homework for a topic. (1/1)', () => {
     var homework = db.getHomeworkForTopic("5");
 
-    expect(homework["1"].question).toBe("2+2=?");
-    expect(homework["2"].question).toBe("3x+1=7. What is x?");
-    expect(homework["3"].question).toBe("(8x*3)/2=20. What is x?");
+    expect(homework.find(x => x.id === 1).question).toBe("2+2=?");
+    expect(homework.find(x => x.id === 2).question).toBe("3x+1=7. What is x?");
+    expect(homework.find(x => x.id === 3).question).toBe("(8x*3)/2=20. What is x?");
 });
 
 //getResourcesForTopic
 test('Checking if DB pulls correct resources for a topic. (1/1)', () => {
     var resources = db.getResourcesForTopic("5");
 
-    expect(resources["1"].link).toBe("https://bim.easyaccessmaterials.com/index.php?level=11.00");
-    expect(resources["2"].link).toBe("https://bim.easyaccessmaterials.com/index.php?level=13.00");
+    expect(resources.find(x => x.id === 1).link).toBe("https://bim.easyaccessmaterials.com/index.php?level=11.00");
+    expect(resources.find(x => x.id === 2).link).toBe("https://bim.easyaccessmaterials.com/index.php?level=13.00");
 });
