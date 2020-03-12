@@ -3,6 +3,7 @@
 
 ## Passwords
 `admin@test.foo`: `adminpass`
+
 `user@test.foo`: `iwishiwasadmin`
 
 THIS APPLICATION IS VERY INSECURE!!! When logging in as a user, the 'user' cookie is set to the user's password hash, and that is used to specify which user is logged in. Don't do this.
