@@ -5,9 +5,9 @@ class Database {
         this.data = data;
     }
 
-    /** 
+    /**
      * Return a topic object from the database
-     * 
+     *
      * @param {number,string} topicID: ID for requested topic
      */
     getTopic(topicID) {
@@ -22,7 +22,7 @@ class Database {
 
     /**
      * Return a homework object from the database
-     * 
+     *
      * @param {number,string} homeworkID: ID for the requested homework
      */
     getHomework(homeworkID) {
@@ -37,7 +37,7 @@ class Database {
 
     /**
      * Return a resource object from the database
-     * 
+     *
      * @param {number,string} resourceID: ID for the requested resource
      */
     getResource(resourceID) {
@@ -49,7 +49,7 @@ class Database {
 
         return resource;
     }
-   
+
     /**
      * Return all parent topics from the database
      * (any topic w/o a 'parent' param set)
@@ -66,8 +66,8 @@ class Database {
 
     /**
      * Returns an array of topic objects for the corresponding parent ID
-     * (any topic with 'parent' set to parentID) 
-     * 
+     * (any topic with 'parent' set to parentID)
+     *
      * @param {number,string} parentID The parent id of the topic
      */
     getChildTopics(parentID) {
@@ -81,13 +81,13 @@ class Database {
     }
 
     /**
-     * Returns an array of all child topics 
+     * Returns an array of all child topics
      * ('parent' set to non-null)
      */
     getAllChildTopics() {
         var topics = data.topics.filter(x => x.parent);
 
-        if (topics.lenght === 0) {
+        if (topics.length === 0) {
             console.error("Failed to get any child topics");
         }
 
@@ -125,7 +125,7 @@ class Database {
 
     /**
      * return array of popular topics in descending order
-     * 
+     *
      * @param {number} n popular topics to return
      */
     getPopularTopics(n) {
@@ -134,16 +134,16 @@ class Database {
 
     /**
      * returns n amount of popular resources in descending order.
-     * 
-     * @param {number} n popular resources to reurn 
+     *
+     * @param {number} n popular resources to reurn
      */
     getPopularResources(n) {
         return shuffle(data.resources).slice(n);
     }
-    
+
     /**
      * Returns a user object for the specified userID
-     * 
+     *
      * @param {number,string} id user ID to find
      */
     getUser(id) {
@@ -158,7 +158,7 @@ class Database {
 
     /**
      * Returns a user object for the specified email
-     * 
+     *
      * @param {string} email user email to find
      */
     getUserByEmail(email) {
@@ -173,7 +173,7 @@ class Database {
 
     /**
      * Add a user to the database
-     * 
+     *
      * @param {string} email email address for the user
      * @param {string} password hashed password for the user
      * @param {string} name user's name
@@ -192,7 +192,7 @@ class Database {
 
     /**
      * Return a user object for the given hash
-     * 
+     *
      * @param {string} password user password hash
      */
     getUserByPassword(password) {
