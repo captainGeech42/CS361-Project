@@ -6,8 +6,27 @@ templates['404.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
 templates['Algebra.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<body>\r\n    <h1>Question 1: 2+2=?</h1>\r\n    <p>Answer: 4</p>\r\n    <h1>Question 2: 3x+1=7. What is x?</h1>\r\n    <p>Answer: 2</p>\r\n    <h1>Question 3: (8x*3)/2=20. What is x?</h1>\r\n    <p>Answer: 5/3 or 2.666</p>\r\n</body>\r\n";
 },"useData":true});
-templates['create-account.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<form action=\"/create-new-account\" method=\"POST\">\n    <table>\n        <tr>\n            <td><label for=\"name\">Name</label></td>\n            <td><input type=\"text\" name=\"name\" /></td>\n        </tr>\n        <tr>\n            <td><label for=\"email\">Email Address</label></td>\n            <td><input type=\"text\" name=\"email\" /></td>\n        </tr>\n        <tr>\n            <td><label for=\"password\">Password</label></td>\n            <td><input type=\"password\" name=\"password\" /></td>\n        </tr>\n        <tr>\n            <td><input type=\"submit\" value=\"Create Account\" /></td>\n        </tr>\n    </table>\n</form>";
+templates['create-account.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "    "
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"message") || (depth0 != null ? lookupProperty(depth0,"message") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"message","hash":{},"data":data,"loc":{"start":{"line":2,"column":4},"end":{"line":2,"column":15}}}) : helper)))
+    + "\n";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"message") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":0},"end":{"line":3,"column":7}}})) != null ? stack1 : "")
+    + "\n<form action=\"/do-create-account\" method=\"POST\">\n    <table>\n        <tr>\n            <td><label for=\"name\">Name</label></td>\n            <td><input type=\"text\" name=\"name\" /></td>\n        </tr>\n        <tr>\n            <td><label for=\"email\">Email Address</label></td>\n            <td><input type=\"text\" name=\"email\" /></td>\n        </tr>\n        <tr>\n            <td><label for=\"password\">Password</label></td>\n            <td><input type=\"password\" name=\"password\" /></td>\n        </tr>\n        <tr>\n            <td><input type=\"submit\" value=\"Create Account\" /></td>\n        </tr>\n    </table>\n</form>";
 },"useData":true});
 templates['index.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div>\n  \n</div>";

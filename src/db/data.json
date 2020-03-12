@@ -186,14 +186,14 @@
         {
             "id": 1,
             "email": "admin@test.foo",
-            "password": "",
+            "password": "$2b$10$YOBrTOaUHw9JU2JJhtKycu1tN2YtGjxPjNx.nmYaD0IJLo4j9vcT2",
             "name": "Admin User",
             "isAdmin": true
         },
         {
             "id": 2,
             "email": "user@test.foo",
-            "password": "",
+            "password": "$2b$10$oTTyQbjj.4wzlY/8Pr3x7.BfyDsZ72ITmVhJlnphdiv5BMuF4767q",
             "name": "User 1",
             "isAdmin": false
         }

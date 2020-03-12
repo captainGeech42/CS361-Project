@@ -17,3 +17,8 @@ test('Checking if DB properly saves a new user', () => {
     db.addUser("test_user_123@foo.com", "password_hash", "Test User 123");
     expect(db.getUserByEmail("test_user_123@foo.com").name).toBe("Test User 123");
 });
+
+// getUserByPassword
+test('Checking if DB properly returns user based on password', () => {
+    expect(db.getUserByPassword("$2b$10$YOBrTOaUHw9JU2JJhtKycu1tN2YtGjxPjNx.nmYaD0IJLo4j9vcT2").id).toBe(1);
+});

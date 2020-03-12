@@ -150,7 +150,7 @@ class Database {
         var user = data.users.find(x => x.id == id);
 
         if (!user) {
-            console.err(`Failed to find user with id ${id}`);
+            console.error(`Failed to find user with id ${id}`);
         }
 
         return user;
@@ -165,7 +165,7 @@ class Database {
         var user = data.users.find(x => x.email == email);
 
         if (!user) {
-            console.err(`Failed to find user with email '${email}'`);
+            console.error(`Failed to find user with email '${email}'`);
         }
 
         return user;
@@ -188,6 +188,21 @@ class Database {
             "isAdmin": false
         };
         data.users.push(newUser);
+    }
+
+    /**
+     * Return a user object for the given hash
+     * 
+     * @param {string} password user password hash
+     */
+    getUserByPassword(password) {
+        var user = data.users.find(x => x.password === password);
+
+        if (!user) {
+            console.error(`Failed to find a user with hash ${password}`);
+        }
+
+        return user;
     }
 }
 
