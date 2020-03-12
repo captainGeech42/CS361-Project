@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 
 var utils = require('./utils/utils');
-var session = require('./session');
 
 const Database = require('./db/database');
 var db = new Database();
