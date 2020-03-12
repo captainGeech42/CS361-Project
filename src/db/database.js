@@ -141,6 +141,69 @@ class Database {
         return shuffle(data.resources).slice(n);
     }
     
+    /**
+     * Returns a user object for the specified userID
+     * 
+     * @param {number,string} id user ID to find
+     */
+    getUser(id) {
+        var user = data.users.find(x => x.id == id);
+
+        if (!user) {
+            console.error(`Failed to find user with id ${id}`);
+        }
+
+        return user;
+    }
+
+    /**
+     * Returns a user object for the specified email
+     * 
+     * @param {string} email user email to find
+     */
+    getUserByEmail(email) {
+        var user = data.users.find(x => x.email == email);
+
+        if (!user) {
+            console.error(`Failed to find user with email '${email}'`);
+        }
+
+        return user;
+    }
+
+    /**
+     * Add a user to the database
+     * 
+     * @param {string} email email address for the user
+     * @param {string} password hashed password for the user
+     * @param {string} name user's name
+     */
+    addUser(email, password, name) {
+        var id = data.users.length + 1;
+        var newUser = {
+            "id": id,
+            "email": email,
+            "password": password,
+            "name": name,
+            "isAdmin": false
+        };
+        data.users.push(newUser);
+    }
+
+    /**
+     * Return a user object for the given hash
+     * 
+     * @param {string} password user password hash
+     */
+    getUserByPassword(password) {
+        var user = data.users.find(x => x.password === password);
+
+        if (!user) {
+            console.error(`Failed to find a user with hash ${password}`);
+        }
+
+        return user;
+    }
 }
 
 function shuffle(a) {
