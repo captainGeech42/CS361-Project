@@ -1,0 +1,54 @@
+<div id="upload-container">
+    <h1 style="font-size: 30px;" class="topic-display-title">Upload Learning Resources</h1>
+    <hr>
+    <br>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+
+        <h2 class="remove-h2">Resource Title</h2>
+        <input name="name" type="text" placeholder="Resource title...">
+        <br>
+        <br>
+
+        <h2 class="remove-h2">Select Parent Topic</h2>
+        <select name="topic" id="topic-dropdown">
+            {{#each topics as |topic|}}
+                <option value="{{topic.id}}">{{topic.name}}</option>
+            {{/each}}
+        </select>
+        <br>
+        <br>
+
+        <h2 class="remove-h2">Resource Type</h2>
+        <select name="type" id="type-dropdown">
+                <option value="Textbook">Textbook</option>
+                <option value="Video">Video</option>
+        </select>
+        <br>
+        <br>
+
+        <h2 class="remove-h2">Description</h2>
+        <textarea name="description"  placeholder="Enter description here..." rows="4" cols="50"></textarea>
+        <br>
+        <br>
+
+        <h2 class="remove-h2">Resource File</h2>
+        <input name="resource" type="file" id="img" name="img" accept="image/*">
+        <input name="password" type="text" class="hidden">
+        
+        <br>
+        <br>
+        <input class="submit-button" type="submit">
+    </form>
+</div>
+
+<script>
+    window.onload = function(){
+        var password = getCookie('user')
+        if(password){
+            document.querySelector('[name="password"]').value = password; 
+        }else {
+            document.querySelector('#upload-container').innerHTML = "<h1>You must be logged in to upload content!</h1>";
+        }
+    }
+</script>
