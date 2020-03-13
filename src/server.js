@@ -58,7 +58,7 @@ app.get('/topics/:topicID/:pageName', function(req, res, next){
 
 app.get('/my-account', function(req, res, next){
     res.status(200).render('my-account', {
-        "uploadedContent": db.getPopularTopics(10)
+        "uploadedContent": db.getPopularResources(3)
     });
 });
 
