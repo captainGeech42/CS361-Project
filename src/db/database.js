@@ -1,10 +1,16 @@
 var data = require('./data.json')
 
+const fs = require("fs");
+
 class Database {
     constructor() {
         this.data = data;
     }
 
+    save() {
+        fs.writeFileSync('./src/db/data.json', JSON.stringify(data));
+    }
+  
     /**
      * Return a topic object from the database
      *
@@ -47,6 +53,7 @@ class Database {
             console.error(`Failed to get resource ${resourceID}`);
         }
 
+
         return resource;
     }
 
@@ -79,7 +86,7 @@ class Database {
 
         return topics;
     }
-
+ 
     /**
      * Returns an array of all child topics
      * ('parent' set to non-null)
@@ -121,7 +128,18 @@ class Database {
 
         return resources;
     }
+    
 
+    getResourcesByUser(username) {
+        var r = data.resources;
+        var resourcesArray = new Array();
+        for(var i = 0; i < r.length; i++) {
+            if(r[i].submitter == username) {
+                resourcesArray.push(r[i]);
+            }
+        }
+        return resourcesArray;
+    }
 
     /**
      * return array of popular topics in descending order
@@ -188,8 +206,33 @@ class Database {
             "isAdmin": false
         };
         data.users.push(newUser);
+        this.save();
     }
+    /**
+     * Adds reference to a resource (the file should already be inserted into public/uploads)
+     * 
+     * @param {string} name name of resource
+     * @param {string} descrption descriptor for resource
+     * @param {string} link link for resource
+     * @param {string} type type of resource
+     * @param {number} topicID the id of the parent
+     * @param {string} username The user name of target. 
+     */
 
+    addResource(name, description, link, type, topicID, username) {
+        var newResource = {
+            "id": data.resources.length+1,
+            "name": name,
+            "description": description,
+            "link": link,
+            "type": type,
+            "topic": topicID,
+            "submitter": username
+        }
+        console.log(newResource);
+        data.resources.push(newResource);
+        this.save();
+    }
     /**
      * Return a user object for the given hash
      *
