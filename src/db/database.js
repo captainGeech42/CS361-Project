@@ -247,6 +247,10 @@ class Database {
 
         return user;
     }
+
+    checkIfUserLoggedIn() {
+
+    }
 }
 
 function shuffle(a) {

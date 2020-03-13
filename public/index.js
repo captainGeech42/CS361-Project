@@ -1,3 +1,8 @@
+
+function displayAlert() {
+    alert("This is not yet implemented")
+}
+
 function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
