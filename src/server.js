@@ -53,11 +53,17 @@ app.get('/', function(req, res, next){
     res.status(200).render('index');
 });
 
+//renders homework questions to page
 app.get('/topics/:topicID/:pageName', function(req, res, next){
     // res.status(200).render(req.params.pageName);
     res.status(200).render('Algebra');
 });
 
+app.get('/my-account', function(req, res, next){
+    res.status(200).render('my-account', {
+        "uploadedContent": db.getPopularResources(3)
+    });
+});
 
 app.get('/topics', function(req, res, next){
     var topicData = new Array();
@@ -69,7 +75,7 @@ app.get('/topics', function(req, res, next){
             childTopics: childTopics
         });
     }
-    
+
     res.status(200).render('topics', {
         "topicData": topicData,
         "popularTopics": db.getPopularTopics(10),
