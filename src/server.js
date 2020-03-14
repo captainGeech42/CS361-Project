@@ -5,6 +5,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 
 var utils = require('./utils/utils');
 
@@ -36,6 +37,8 @@ hbs = exphbs.create({
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(multer({dest:'./public/uploads'}).single('resource'));
+
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
@@ -81,6 +84,43 @@ app.get('/topics', function(req, res, next){
 
 });
 
+
+app.get('/upload', function(req, res, next){
+    var topicData = db.getAllChildTopics().sort(function(a,b){
+        if(a.name.toLowerCase() > b.name.toLowerCase()){
+            return 1;
+        }else if(a.name.toLowerCase() < b.name.toLowerCase()){
+            return -1;
+        }else{
+            return 0;
+        }
+    });
+
+    res.status(200).render('upload', {
+        "topics": topicData
+    });
+});
+
+app.post('/upload', function(req, res, next){
+    db.addResource(req.body.name, req.body.description, req.body.type, req.file.path, req.body.topic, db.getUserByPassword(req.body.password.replace(/%24/g, "$")))
+    res.redirect('/');
+})
+
+app.post('/do-delete', function(req, res, next) {
+    // console.log(db.getUserByPassword(req.cookies.user));
+    db.deleteUserByPassword(req.cookies.user);
+    // res.status(200).cookie(prop, '', {expires: new Date(0)});
+    cookie = req.cookies;
+    for(var i in cookie) {
+        if(!cookie.hasOwnProperty(i)) {
+            continue;
+        }
+        res.cookie(i, "", {expires: new Date(0)});
+    }
+    res.redirect('/');
+})
+
+
 // app.get('/topics/:topicID', function(req, res, next) {
 //     // TODO make a topic page here
 //     next();
@@ -92,13 +132,15 @@ app.post('/do-create-account', function(req, res, next) {
     bcrypt.hash(req.body.password, bcryptSaltRounds, (err, hash) => {
         if (err) {
             console.err(`Error hashing password: ${err}`);
+            res.redirect('/do-create-account');
         }
         console.log(`Adding new user: ${req.body.email} ${hash}`);
 
         db.addUser(req.body.email, hash, req.body.password);
-    });
 
-    res.redirect('/');
+        res.cookie('user', hash);
+        res.redirect('/');
+    });
 });
 
 // handle a user logging in
@@ -108,9 +150,9 @@ app.post('/do-login', function(req, res, next) {
 
     bcrypt.compare(req.body.password, user ? user.password : '', (err, result) => {
         if (result) {
-            res.cookie('user', user.password, {'httpOnly': true});
-            console.log("user logged in successfully");
-            res.render('login', { message: 'Successfully logged in!'});
+            res.cookie('user', user.password);
+            res.render('login',  { message: 'Successfully logged in!'});
+
         } else {
             console.log("user failed log in");
             res.render('login', { message: 'Failed to log in, bad creds :('});
