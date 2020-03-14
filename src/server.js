@@ -106,6 +106,20 @@ app.post('/upload', function(req, res, next){
     res.redirect('/');
 })
 
+app.post('/do-delete', function(req, res, next) {
+    // console.log(db.getUserByPassword(req.cookies.user));
+    db.deleteUserByPassword(req.cookies.user);
+    // res.status(200).cookie(prop, '', {expires: new Date(0)});
+    cookie = req.cookies;
+    for(var i in cookie) {
+        if(!cookie.hasOwnProperty(i)) {
+            continue;
+        }
+        res.cookie(i, "", {expires: new Date(0)});
+    }
+    res.redirect('/');
+})
+
 
 // app.get('/topics/:topicID', function(req, res, next) {
 //     // TODO make a topic page here
@@ -136,7 +150,7 @@ app.post('/do-login', function(req, res, next) {
 
     bcrypt.compare(req.body.password, user ? user.password : '', (err, result) => {
         if (result) {
-            res.cookie('user', user.password);  
+            res.cookie('user', user.password);
             res.render('login',  { message: 'Successfully logged in!'});
 
         } else {
