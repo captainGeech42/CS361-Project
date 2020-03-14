@@ -17,10 +17,32 @@ var userpass = getCookie('user');
 if(userpass){
     var accountButton = document.querySelector('#account-button');
     accountButton.classList.add('hidden');
-    
+
     document.querySelector('#create-account-button').classList.add('hidden');
 
     document.querySelector('#account-button2').classList.remove('hidden');
 
+
+}
+
+function checkIfUserLoggedIn() {
+    var request = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    };
+    console.log(request);
+    fetch('/do-delete', request);
+
+
+    var accountButton = document.querySelector('#account-button');
+    accountButton.classList.remove('hidden');
+
+    document.querySelector('#create-account-button').classList.remove('hidden');
+
+    document.querySelector('#account-button2').classList.add('hidden');
+
+    window.location.href = "/"
 
 }

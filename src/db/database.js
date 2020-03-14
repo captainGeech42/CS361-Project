@@ -10,7 +10,7 @@ class Database {
     save() {
         fs.writeFileSync('./src/db/data.json', JSON.stringify(data));
     }
-  
+
     /**
      * Return a topic object from the database
      *
@@ -86,7 +86,7 @@ class Database {
 
         return topics;
     }
- 
+
     /**
      * Returns an array of all child topics
      * ('parent' set to non-null)
@@ -128,7 +128,7 @@ class Database {
 
         return resources;
     }
-    
+
 
     getResourcesByUser(username) {
         var r = data.resources;
@@ -210,13 +210,13 @@ class Database {
     }
     /**
      * Adds reference to a resource (the file should already be inserted into public/uploads)
-     * 
+     *
      * @param {string} name name of resource
      * @param {string} descrption descriptor for resource
      * @param {string} link link for resource
      * @param {string} type type of resource
      * @param {number} topicID the id of the parent
-     * @param {string} username The user name of target. 
+     * @param {string} username The user name of target.
      */
 
     addResource(name, description, link, type, topicID, username) {
@@ -248,9 +248,20 @@ class Database {
         return user;
     }
 
-    checkIfUserLoggedIn() {
-
+    deleteUserByPassword(password) {
+        // console.log(password);
+        var user = this.getUserByPassword(password);
+        if(user) {
+            for(var i = 0; i < data.users.length; i++) {
+                if(user.password === data.users[i].password) {
+                    data.users.splice(i, 1);
+                }
+            }
+            this.save();
+        }
+        // delete user;
     }
+
 }
 
 function shuffle(a) {
