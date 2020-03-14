@@ -134,7 +134,7 @@ class Database {
         var r = data.resources;
         var resourcesArray = new Array();
         for(var i = 0; i < r.length; i++) {
-            if(r[i].submitter == username) {
+            if(r[i].submitter === username) {
                 resourcesArray.push(r[i]);
             }
         }

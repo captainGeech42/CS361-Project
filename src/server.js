@@ -60,9 +60,18 @@ app.get('/topics/:topicID/:pageName', function(req, res, next){
 });
 
 app.get('/my-account', function(req, res, next){
-    res.status(200).render('my-account', {
-        "uploadedContent": db.getPopularResources(3)
-    });
+    var user = db.getUserByPassword(req.cookies.user);
+    if(user){
+        res.status(200).render('my-account', {
+            "uploadedContent": db.getResourcesByUser(user.email),
+            "validUser": true
+        });
+    }else {
+        res.status(200).render('my-account', {
+            "uploadedContent": [],
+            "validUser": false
+        });
+    }
 });
 
 app.get('/topics', function(req, res, next){
@@ -102,8 +111,14 @@ app.get('/upload', function(req, res, next){
 });
 
 app.post('/upload', function(req, res, next){
-    db.addResource(req.body.name, req.body.description, req.body.type, req.file.path, req.body.topic, db.getUserByPassword(req.body.password.replace(/%24/g, "$")))
-    res.redirect('/');
+    var user = db.getUserByPassword(req.body.password.replace(/%24/g, "$")); //somewhere along the way the password is espaced via HTML, transforming dollar signs into %24
+
+    if(user){
+        db.addResource(req.body.name, req.body.description, req.body.type, req.file.path, req.body.topic, user.email);
+        res.render('/upload', {message: "Upload successful!"});
+    } else{
+        res.render('/upload', {message: "Please login to upload content. "});
+    }
 })
 
 app.post('/do-delete', function(req, res, next) {
@@ -151,7 +166,7 @@ app.post('/do-login', function(req, res, next) {
     bcrypt.compare(req.body.password, user ? user.password : '', (err, result) => {
         if (result) {
             res.cookie('user', user.password);
-            res.render('login',  { message: 'Successfully logged in!'});
+            res.render('my-account',  { message: 'Successfully logged in!'});
 
         } else {
             console.log("user failed log in");

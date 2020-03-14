@@ -1,0 +1,25 @@
+{{#if message}}
+    <center class="message">{{message}}</center>
+{{/if}}
+
+<div id="uploaded-content">
+    {{#if validUser}}
+        <h1 class="topic-display-title" style="padding-left: 10%;">Your Uploaded Content</h1>
+        <hr>
+        
+        {{#unless uploadedContent.length}}
+            <div>You haven't uploaded any content!</div>
+        {{else}}
+            <ol>
+                {{#each uploadedContent as |child|}}
+                    <li><a href="{{child.link}}">{{child.name}}</a></li>
+                {{/each}}
+            </ol>
+
+        {{/unless}}
+
+    {{else}}
+        <h1 class="topic-display-title" style="padding-left: 10%;">You are not logged in!</h1>
+    {{/if}}
+</div>
+
